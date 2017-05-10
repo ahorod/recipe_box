@@ -1,0 +1,22 @@
+<h1>Here is a list of recipes</h1>
+
+<% if @recipes.any?() %>
+    <ul>
+    <% @recipes.each() do |recipe| %>
+      <li><a href="/recipes/<%= recipe.id() %>"><%= recipe.name() %></a><%= recipe.rating()%></li>
+    <% end %>
+    </ul>
+
+<% else %>
+    <h5>No recipes added, please add recipes</h5>
+<% end %>
+
+
+<form action="/recipes" method="post">
+  <label for="name">What is the name of your dish?</label>
+  <input type="text" name="name">
+  <label for="rating">Rate this recipe on a scale of 1 to 10</label>
+  <input type="number" name="rating">
+  <button type="submit">Add This Recipe</button>
+
+</form>
