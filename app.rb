@@ -54,23 +54,32 @@ get('/recipes/:id') do
   @recipe = Recipe.find(id)
   @ingredients = Ingredient.all()
   @tags = Tag.all()
-  @my_ingredients = []
+  @my_ingredients = @recipe.ingredients()
+  @my_tags = @recipe.tags()
   erb(:recipe)
 end
 
 patch('/add_ingredient/:id') do
   id = params.fetch('id').to_i
+  ingredient_ids = params.fetch("ingredient_ids", "")
+  tag_ids = params.fetch('tag_ids', "")
+  @ingredients = Ingredient.all()
+  @tags = Tag.all()
   @recipe = Recipe.find(id)
-  ingredient_ids = params.fetch("ingredient_ids")
+  @my_ingredients = @recipe.ingredients()
+  @my_tags = @recipe.tags()
 
-  # if ingredient_ids != nil
+  if ingredient_ids != ""
     ingredient_ids.each() do |ingredient_id|
       ingredient = Ingredient.find(ingredient_id)
       @my_ingredients = @recipe.ingredients.push(ingredient)
     end
-
-  @ingredients = Ingredient.all()
-  @tags = Tag.all()
+  end
+  if tag_ids != ""
+    tag_ids.each() do |tag_id|
+      tag = Tag.find(tag_id)
+      @my_tags = @recipe.tags.push(tag)
+    end
+  end
   erb(:recipe)
-  # end
 end
