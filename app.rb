@@ -49,6 +49,27 @@ post('/tags') do
   erb(:tags)
 end
 
+get('/tags/:id') do
+  id = params.fetch('id').to_i
+  @tag = Tag.find(id)
+  erb(:tag)
+end
+patch('/tag_update/:id') do
+  id = params.fetch('id').to_i
+  name = params.fetch('name')
+  @tag = Tag.find(id)
+  @tag.update(:name => name)
+  erb(:tag)
+end
+
+delete('/tag_delete/:id') do
+  id = params.fetch('id').to_i
+  @tag = Tag.find(id)
+  @tag.delete()
+  @tags = Tag.all()
+  erb(:tags)
+end
+
 get('/recipes/:id') do
   id = params.fetch('id').to_i
   @recipe = Recipe.find(id)
@@ -63,11 +84,14 @@ patch('/add_ingredient/:id') do
   id = params.fetch('id').to_i
   ingredient_ids = params.fetch("ingredient_ids", "")
   tag_ids = params.fetch('tag_ids', "")
+  instructions = params.fetch('instructions')
+
   @ingredients = Ingredient.all()
   @tags = Tag.all()
   @recipe = Recipe.find(id)
   @my_ingredients = @recipe.ingredients()
   @my_tags = @recipe.tags()
+  @recipe.update(:instruction => instructions)
 
   if ingredient_ids != ""
     ingredient_ids.each() do |ingredient_id|
