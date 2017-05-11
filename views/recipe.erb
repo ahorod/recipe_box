@@ -1,5 +1,9 @@
 <h1> <%=@recipe.name() %></h1>
+<form action="/recipe_delete/<%= @recipe.id() %>" method="post">
+  <input type="hidden" name="_method" value="delete">
+  <button type="submit">Remove This Recipe From Database</button>
 
+</form>
 <h2>The recipe has the following ingredients</h2>
 <h3>Ingredients</h3>
 <ul>

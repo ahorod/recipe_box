@@ -133,3 +133,22 @@ get('/:recipe_id/tag/:id') do
   @tags = Tag.all()
   erb(:recipe)
 end
+delete('/recipe_delete/:id') do
+  id = params.fetch('id').to_i
+  recipe = Recipe.find(id)
+  ingredients = recipe.ingredients()
+  tags = recipe.tags()
+  recipe.delete()
+  recipe.ingredients.destroy(ingredients)
+  recipe.tags.destroy(tags)
+  @recipes = Recipe.all()
+  erb(:recipes)
+end
+
+get('/ingredients/:id') do
+  @recipes = Recipe.all()
+  id = params.fetch('id').to_i
+  @ingredient = Ingredient.find(id)
+  @ingredient_recipes = @ingredient.recipes()
+  erb(:ingredient)
+end
