@@ -5,12 +5,12 @@
   <label for="name">Change the name of this ingredient</label>
   <input type="text" name="name">
 
-  <button type="submit">Update the name of this ingredient</button>
+  <button class="btn btn-success"type="submit">Update</button>
 </form>
 
 <form action="/ingredient_delete/<%= @ingredient.id() %>" method="post">
     <input type="hidden" name="_method" value="delete">
-    <button type="submit">Remove this ingredient</button>
+    <button class="btn btn-danger"type="submit">Remove</button>
 </form>
 
 <h3>Below are all of the recipes that use <%= @ingredient.name() %>.</h3>

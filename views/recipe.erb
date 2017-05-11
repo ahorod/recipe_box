@@ -39,7 +39,9 @@
             <div class="checkbox">
               <label>
                 <input type="checkbox" name="ingredient_ids[]" value="<%= ingredient.id() %>"><%= ingredient.name()%>
-                <input type="number" name="quantity">
+
+                <input type="number" name="quantities" placeholder="quantity">
+                <input type="text" name="measurements" placeholder="measurement">
               </label>
             </div>
           <% end %>

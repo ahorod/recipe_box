@@ -5,6 +5,7 @@ also_reload('lib/**/*.rb')
 require('./lib/tag')
 require('./lib/recipe')
 require('./lib/ingredient')
+require('./lib/dish')
 require('pry')
 require("pg")
 
@@ -97,8 +98,18 @@ patch('/add_ingredient/:id') do
     ingredient_ids.each() do |ingredient_id|
       ingredient = Ingredient.find(ingredient_id)
       @my_ingredients = @recipe.ingredients.push(ingredient)
+      dish = Dish.find_by ingredient_id: ingredient_id, recipe_id: @recipe.id()
+
+      dish.update({:quantity => params[:quantities]})
+
+      # @dish = Dish.push(ingredient)
+
     end
   end
+  # quantities.each() do |quantity|
+  #   Dish.find(ingredient_id)
+  #   Dish.update(:quantity => quantity)
+  # end
   if tag_ids != ""
     tag_ids.each() do |tag_id|
       tag = Tag.find(tag_id)

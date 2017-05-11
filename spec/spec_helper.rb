@@ -6,6 +6,7 @@ require("sinatra/activerecord")
 require("./lib/tag")
 require("./lib/recipe")
 require("./lib/ingredient")
+require("./lib/dish")
 
 
 RSpec.configure do |config|
