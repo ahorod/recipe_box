@@ -107,3 +107,29 @@ patch('/add_ingredient/:id') do
   end
   erb(:recipe)
 end
+get('/:recipe_id/ingredient/:id') do
+  id = params.fetch('id').to_i
+  recipe_id = params.fetch('recipe_id').to_i
+  @recipe= Recipe.find(recipe_id)
+  ingredient = Ingredient.find(id)
+
+  @recipe.ingredients.destroy(ingredient)
+  @my_ingredients = @recipe.ingredients()
+  @my_tags = @recipe.tags()
+  @ingredients = Ingredient.all()
+  @tags = Tag.all()
+  erb(:recipe)
+end
+get('/:recipe_id/tag/:id') do
+  id = params.fetch('id').to_i
+  recipe_id = params.fetch('recipe_id').to_i
+  @recipe= Recipe.find(recipe_id)
+  tag = Tag.find(id)
+  @recipe.tags.destroy(tag)
+
+  @my_ingredients = @recipe.ingredients()
+  @my_tags = @recipe.tags()
+  @ingredients = Ingredient.all()
+  @tags = Tag.all()
+  erb(:recipe)
+end
