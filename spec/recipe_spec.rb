@@ -2,9 +2,14 @@ require("spec_helper")
 
 
 describe(Recipe) do
+  it("validates presence of rating") do
+    recipe = Recipe.new({:rating => ""})
+    expect(recipe.save()).to(eq(false))
+  end
   describe('#ingredients') do
     it('each recipe has many ingredients') do
-      recipe = Recipe.create({:name => "annas breakfast"})
+      recipe = Recipe.create({:name => "annas breakfast", :rating => "3"})
+
       ingredient1 = recipe.ingredients.create({:name => 'cheerios'})
       ingredient2 = recipe.ingredients.create({:name => 'yogurt'})
 
@@ -14,7 +19,7 @@ describe(Recipe) do
 
   describe('#tags') do
     it('each recipe has many tags') do
-      recipe = Recipe.create({:name => "annas breakfast"})
+      recipe = Recipe.create({:name => "annas breakfast", :rating => "3"})
       tag1 = recipe.tags.create({:name => 'delicious'})
       tag2 = recipe.tags.create({:name => 'healthy'})
 

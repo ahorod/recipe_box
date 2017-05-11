@@ -14,7 +14,6 @@ end
 
 get('/recipes/new') do
   @recipes = Recipe.all()
-  
   erb(:recipes)
 end
 
@@ -152,4 +151,21 @@ get('/ingredients/:id') do
   @ingredient = Ingredient.find(id)
   @ingredient_recipes = @ingredient.recipes()
   erb(:ingredient)
+end
+
+patch('/ingredient_update/:id') do
+  id = params.fetch("id").to_i
+  name = params.fetch("name")
+  @ingredient = Ingredient.find(id)
+  @ingredient.update(:name => name)
+  @ingredient_recipes = @ingredient.recipes()
+  erb(:ingredient)
+end
+
+delete('/ingredient_delete/:id') do
+  id = params.fetch("id").to_i
+  ingredient = Ingredient.find(id)
+  ingredient.delete()
+  @ingredients = Ingredient.all()
+  erb(:ingredients)
 end

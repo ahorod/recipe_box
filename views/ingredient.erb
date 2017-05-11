@@ -1,5 +1,18 @@
 <h1><%= @ingredient.name() %></h1>
 
+<form action="/ingredient_update/<%= @ingredient.id() %>" method="post">
+  <input type="hidden" name="_method" value="patch">
+  <label for="name">Change the name of this ingredient</label>
+  <input type="text" name="name">
+
+  <button type="submit">Update the name of this ingredient</button>
+</form>
+
+<form action="/ingredient_delete/<%= @ingredient.id() %>" method="post">
+    <input type="hidden" name="_method" value="delete">
+    <button type="submit">Remove this ingredient</button>
+</form>
+
 <h3>Below are all of the recipes that use <%= @ingredient.name() %>.</h3>
 <ul>
 
